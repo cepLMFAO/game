@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>地球Online v0.0.1</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+<div id="game-root">
+
+    <!-- 登入層 -->
+    <div class="login-layer" id="login-layer">
+        <div class="stars"></div>
+        <div class="earth-wrap">
+            <div class="earth"></div>
+        </div>
+        <div class="login-ui" id="login-ui">
+            <h1>🌏 地球 Online</h1>
+            <p>亞洲黑色幽默增強版 v0.0.1</p>
+            <div id="login-choices"></div>
+
+        </div>
+        <div class="earth-wrap">
+            <div class="earth"></div>
+        </div>
+
+    </div>
+
+    <!-- 背景 -->
+    <div id="bg" class="bg"></div>
+
+    <!-- 角色 -->
+    <div id="char-left" class="character side-left">
+        <div class="avatar"></div>
+        <div class="name"></div>
+    </div>
+    <div id="char-right" class="character side-right">
+        <div class="avatar"></div>
+        <div class="name"></div>
+    </div>
+
+    <!-- 對話框 -->
+    <div id="dialog" class="dialog">
+        <div id="scene-title" class="scene-title"></div>
+        <div id="dialog-text" class="dialog-text"></div>
+    </div>
+
+    <!-- 選項 -->
+    <div id="choices" class="choices"></div>
+</div>
+
+<script src="js/scenes.js"></script>
+<script src="js/main.js"></script>
+<script src="js/minigames.js"></script>
+</body>
+</html>
