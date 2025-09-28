@@ -256,7 +256,6 @@
 <audio id="bgm-player" preload="auto" loop></audio>
 
 <script>
-    // Assets (using placeholders since files may not exist)
     const assets = {
         bg: {
             morning:  "assets/backgrounds/morning.jpg",
@@ -269,6 +268,9 @@
             final:    "assets/backgrounds/final.jpg",
             death:    "assets/backgrounds/death.jpg",
             ending:   "assets/backgrounds/ending.jpg",
+            sending: "assets/backgrounds/sending.jpg",
+            trunk:   "assets/backgrounds/trunk.jpg",
+            711:   "assets/backgrounds/711.jpg",
         },
         chars: {
             player:  "assets/characters/player.png",
@@ -369,8 +371,8 @@
             text: "小偷事件落幕，火車繼續前進，你決定：",
             bg: "train", left: null, right: "player",
             choices: [
-                { text: "A. 複習數學，準備迎接今天的考試", next: "exam1" },
-                { text: "B. 玩手遊", death: "睡到高雄，下車發現段考結束，媽見打。\n🪦【高雄歡迎你，但你已無人生】" }
+                { text: "A. 玩手遊", death: "睡到高雄，下車發現段考結束，媽見打。\n🪦【高雄歡迎你，但你已無人生】" },
+                { text: "B. 複習數學，準備迎接今天的考試", next: "exam1" },
             ]
         },
 
@@ -485,7 +487,7 @@
             text: "爸爸盯著你，眼神像要把你看穿。",
             bg: "home", left: "dad", right: "player",
             choices: [
-                { text: "A. 裝晴天娃娃 → 隱藏通關", next: "hiddenEnding" },
+                { text: "A. 裝晴天娃娃", next: "hiddenEnding" },
                 { text: "B. 低頭沉默", next: "dinner1" },
                 { text: "C. 反擊頂嘴", death: "全家爆打你一頓，送急診未醒來。\n🪦【自由的代價是全滅】" }
             ]
@@ -547,7 +549,7 @@
         finalEvent2:{
             title: "散步途中",
             text: "走在巷子裡，一台貨車突然出現！",
-            bg: "final", left: null, right: "player",
+            bg: "trunk", left: null, right: "player",
             choices: [
                 { text: "A. 閃避貨車", next: "finalEvent3" },
                 { text: "B. 呆站原地", death: "被貨車來回輾壓。\n🪦【飲料漲價只是序曲，貨車才是主旋律】" }
@@ -557,7 +559,7 @@
         finalEvent3:{
             title: "終極選擇",
             text: "你安然走到便利商店前，想起今晚的煩惱：",
-            bg: "final", left: "player", right: null,
+            bg: "711", left: "player", right: null,
             choices: [
                 { text: "A. 買飲料", death: "一轉身被小混混刺死。\n🪦【甜蜜的飲料，血腥的代價】" },
                 { text: "B. 回房讀書", death: "熬夜猝死。\n🪦【知識改變命運，但先改變你的壽命】" },
@@ -570,7 +572,7 @@
         hiddenEnding: {
             title: "隱藏通關",
             text: "✨ 成功裝成晴天娃娃 = 通關，但只是進入「新手村地獄副本」。",
-            bg: "ending", left: null, right: null,
+            bg: "sending", left: null, right: null,
             choices: [ { text: "重新投胎（回登入）", next: "login" } ]
         },
 
@@ -589,13 +591,11 @@
         }
     };
 
-    /* 遊戲狀態 */
     let state = {
         scene: "login",
         deaths: 0
     };
 
-    /* ===== 工具函數 ===== */
     function rand(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -604,7 +604,6 @@
         return arr.sort(() => Math.random() - 0.5);
     }
 
-    /* 打字機效果 */
     let typerTimer = null;
     function typeWriter(el, text, speed = 34) {
         if (typerTimer) clearInterval(typerTimer);
