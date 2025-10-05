@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>地球Online v0.5.0
-    </title>
+    <title>地球Online v0.5.0</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
 
     <style>
@@ -41,12 +40,8 @@
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-
-            background: url('assets/images/earth-map.jpg') repeat-x;
-            background-size: cover;
-
+            background: linear-gradient(135deg, #1e3a5f 0%, #0a1929 100%);
             animation: earth-spin 20s linear infinite;
-
             box-shadow:
                     inset 0 0 25px rgba(0,0,0,0.7),
                     0 0 40px rgba(0,150,255,0.8),
@@ -54,12 +49,8 @@
         }
 
         @keyframes earth-spin {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: -100% 0;
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .earth::after {
@@ -167,10 +158,8 @@
             cursor: pointer;
             width: min(420px, 90vw);
             text-align: center;
-
             background: rgba(20, 20, 20, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.4);
-
             padding: 12px 16px;
             border-radius: 12px;
             font-size: 18px;
@@ -189,6 +178,8 @@
         .mini-game{ position:absolute; inset:0; z-index:6; display:grid; place-items:center; }
         .mini-card{
             width:min(680px,92vw);
+            max-height:90vh;
+            overflow-y:auto;
             background:rgba(0,0,0,.72);
             border:1px solid rgba(255,255,255,.22);
             border-radius:14px;
@@ -242,7 +233,6 @@
 
     <div id="choices" class="choices"></div>
 </div>
-<audio id="bgm-player" preload="auto" loop></audio>
 
 <script>
     const assets = {
@@ -304,7 +294,6 @@
         },
         morning1: {
             title: "早晨起床",
-            bgm: "super_idol.mp3",
             text: "🎵 你被《Super Idol》的音樂吵醒，眼睛還沒睜開就感覺到母親的殺氣。",
             bg: "morning", left: "mom", right: "player",
             choices: [
@@ -312,7 +301,6 @@
                 { text: "B. 繼續睡", death: "你錯過段考，被母親「閃電衣架劈」+ 父親「皮帶大法好」處決。\n🪦【別人起床拼未來，你起床拼喪禮】" }
             ]
         },
-
         morning2: {
             title: "刷牙時間",
             text: "浴室裡的牙刷靜靜地立著，你腦海中浮現一句古老的亞洲格言：「不刷牙，死更快」。",
@@ -322,7 +310,6 @@
                 { text: "B. 偷玩手機", death: "滑倒撞破頭，手機成最後陪葬品。\n🪦【科技是進步，也是絆腳石】" }
             ]
         },
-
         morning3: {
             title: "早餐時間",
             text: "媽媽：「益閎，快吃早餐，不吃會死！」",
@@ -332,7 +319,6 @@
                 { text: "B. 邊走邊吃", death: "被貨車當早餐補鐵。\n🪦【別人補充營養，你補充鐵塊】" }
             ]
         },
-
         train1:{
             title: "上車找位子",
             text: "火車緩緩駛進月台，你擠進車廂時看到一個空位。",
@@ -342,7 +328,6 @@
                 { text: "B. 搶博愛座", death: "被阿姨聯合攻擊，扔下車外。\n🪦【老天鵝啊，博愛博愛成悲哀】" }
             ]
         },
-
         train2: {
             title: "小偷事件",
             text: "突然有人大喊：「我的錢包不見了！」\n全車目光齊刷刷盯向你。",
@@ -352,7 +337,6 @@
                 { text: "B. 什麼都不做", death: "你被誤認為小偷，直接被群毆致死。\n🪦【沉默不代表無辜】" }
             ]
         },
-
         train3: {
             title: "選擇專注",
             text: "小偷事件落幕，火車繼續前進，你決定：",
@@ -362,7 +346,6 @@
                 { text: "B. 複習數學，準備迎接今天的考試", next: "exam1" },
             ]
         },
-
         exam1: {
             title: "數學考試開始",
             text: "考卷一翻開，全是 sin、cos、tan 之類的東西，你發現自己複習錯範圍。",
@@ -372,7 +355,6 @@
                 { text: "B. 放聲大哭", death: "監考老師認為你作弊，用圓規刺死你。\n🪦【眼淚換不來分數】" }
             ]
         },
-
         exam2:{
             title: "決定策略",
             text: "你環顧四周，同學們像一群機器人，瘋狂書寫。\n你只能：",
@@ -383,7 +365,6 @@
                 { text: "C. 直接睡覺", death: "0 分，老爹施展「踹你死功夫」。\n🪦【睡眠是自由，代價是生命】" }
             ]
         },
-
         lunch1:{
             title: "午餐時段",
             text: "下課鐘響起，全班人衝向餐廳搶位子，你面臨選擇：",
@@ -393,7 +374,6 @@
                 { text: "B. 慢慢走，保持優雅", death: "你被後排暴衝的人群踩成肉餅。\n🪦【優雅是慢性自殺】" }
             ]
         },
-
         lunch2:{
             title: "餐廳修羅場",
             text: "終於拿到餐盤，前方出現三個攤位：炸雞排、青菜、神秘料理。",
@@ -404,7 +384,6 @@
                 { text: "C. 選神秘料理", death: "吃下去獲得 +99 腹瀉 DEBUFF，廁所猝死。\n🪦【探險是勇氣，也是殞命】" }
             ]
         },
-
         lunch3:{
             title: "午餐後",
             text: "吃飽後，你猶豫下一步該做什麼。",
@@ -414,7 +393,6 @@
                 { text: "B. 背英文單字", next: "englishExam1" }
             ]
         },
-
         englishExam1:{
             title: "英文考試前夕",
             text: "老師走進教室，手裡拿著一疊厚厚的考卷，表情像在宣布死刑。",
@@ -424,7 +402,6 @@
                 { text: "B. 跟隔壁同學聊天", death: "被老師當場抓包，扣 100 分。\n🪦【社交是墳場】" }
             ]
         },
-
         englishExam2:{
             title: "第一題",
             text: "考卷第一題是一個超簡單的英文填空，\n如果錯了將遭到老師死亡凝視。",
@@ -434,7 +411,6 @@
                 { text: "B. 隨便亂寫", death: "老師直接拿粉筆插進你氣管。\n🪦【亂寫速死】" }
             ]
         },
-
         englishExam3:{
             title: "考卷終章",
             text: "老師：「接下來是小遊戲環節，錯一題就 Game Over。」",
@@ -443,7 +419,6 @@
                 { text: "開始英文小遊戲", next: "englishGame" }
             ]
         },
-
         home1:{
             title: "回到家",
             text: "你一踏進家門，就看到媽媽在廚房拿菜刀。",
@@ -453,7 +428,6 @@
                 { text: "B. 調侃她：「Okaasan，cosplay 好像哦！」", death: "刀直接飛向你。\n🪦【玩笑也是死亡陷阱】" }
             ]
         },
-
         home2:{
             title: "父母質問",
             text: "媽媽：「你今天考得怎樣？」\n你：……",
@@ -463,7 +437,6 @@
                 { text: "B. 撒謊說考很好", next: "home3" }
             ]
         },
-
         home3:{
             title: "關鍵選擇",
             text: "爸爸盯著你，眼神像要把你看穿。",
@@ -474,7 +447,6 @@
                 { text: "C. 反擊頂嘴", death: "全家爆打你一頓，送急診未醒來。\n🪦【自由的代價是全滅】" }
             ]
         },
-
         dinner1:{
             title: "晚餐開局",
             text: "媽媽：「益閎，吃飯了！」\n桌上擺著滿滿菜餚。",
@@ -484,7 +456,6 @@
                 { text: "B. 完全不理她", death: "媽媽直接摔鍋砸頭。\n🪦【不吃即死，吃了更死】" }
             ]
         },
-
         dinner2:{
             title: "媽媽嘆氣",
             text: "媽媽嘆氣：「我煮這麼多，你不想吃就直說嘛！」",
@@ -494,7 +465,6 @@
                 { text: "B. 嘴臭回懟", death: "爸媽合力開大。\n🪦【嘴臭換來家庭連坐】" }
             ]
         },
-
         dinner3:{
             title: "晚餐結束",
             text: "飯後，你覺得氣氛有些微妙，該做什麼呢？",
@@ -504,7 +474,6 @@
                 { text: "B. 偷偷溜回房間", death: "被爸媽攔下當場斬立決。\n🪦【逃不出晚餐，也逃不出原生家庭】" }
             ]
         },
-
         finalEvent1:{
             title: "飯後選擇 1",
             text: "今晚的夜色讓你感到不安。",
@@ -514,7 +483,6 @@
                 { text: "B. 直接睡覺", next: "ending" }
             ]
         },
-
         finalEvent2:{
             title: "散步途中",
             text: "走在巷子裡，一台貨車突然出現！",
@@ -524,7 +492,6 @@
                 { text: "B. 呆站原地", death: "被貨車來回輾壓。\n🪦【飲料漲價只是序曲，貨車才是主旋律】" }
             ]
         },
-
         finalEvent3:{
             title: "終極選擇",
             text: "你安然走到便利商店前，想起今晚的煩惱：",
@@ -536,21 +503,18 @@
                 { text: "D. 回家安然睡覺", next: "ending" }
             ]
         },
-
         hiddenEnding: {
             title: "隱藏通關",
             text: "✨ 成功裝成晴天娃娃 = 通關，但只是進入「新手村地獄副本」。",
             bg: "sending", left: null, right: null,
             choices: [ { text: "重新投胎（回登入）", next: "login" } ]
         },
-
         ending: {
             title: "遊戲結算",
             text: () => `📊 存活時間：18 小時 32 分鐘\n死亡次數：${state.deaths}\nBuff：內卷 MAX、比較心態 +999、亞洲式陰影 永久綁定\n\n⚠️ 《地球Online》亞洲伺服器為永久 Hard 模式，無法調整難度。\nDLC：補習班煉獄篇（必買）／相親安排篇（中國服）／養老醫院排隊篇（歐洲測試中）`,
             bg: "ending", left: null, right: null,
             choices: [ { text: "重新投胎（回登入）", next: "login", action: () => { state.deaths = 0; } } ]
         },
-
         death: {
             title: "你死了",
             text: "……",
@@ -612,15 +576,7 @@
             el.style.backgroundImage = "none";
             return;
         }
-        const url = assets.bg[key];
-        if (!url) {
-            el.style.backgroundImage = "none";
-            return;
-        }
-        const img = new Image();
-        img.onload = () => (el.style.backgroundImage = `url('${url}')`);
-        img.onerror = () => (el.style.backgroundImage = "radial-gradient(1000px 800px at 50% 120%, #202020, #000)");
-        img.src = url;
+        el.style.backgroundImage = "radial-gradient(1000px 800px at 50% 120%, #202020, #000)";
     }
 
     function renderChar(id, who) {
@@ -630,7 +586,6 @@
             wrap.classList.remove("active");
             return;
         }
-        const emoji = assets.chars[who];
         const avatar = wrap.querySelector(".avatar");
         const name = wrap.querySelector(".name");
 
@@ -641,14 +596,16 @@
             teacher: "老師"
         };
 
+        const emojiMap = {
+            player: "🧑",
+            mom: "👩",
+            dad: "👨",
+            teacher: "👨‍🏫"
+        };
+
         name.textContent = nameMap[who] || who;
-        if (emoji) {
-            avatar.style.backgroundImage = `url('${emoji}')`;
-            avatar.textContent = "";
-        } else {
-            avatar.style.backgroundImage = "none";
-            avatar.textContent = "👤";
-        }
+        avatar.style.backgroundImage = "none";
+        avatar.textContent = emojiMap[who] || "👤";
 
         wrap.style.display = "flex";
         wrap.classList.remove("active");
@@ -790,7 +747,7 @@
     }
 
     function genHardMathQ() {
-        const types = ["hardDerivative", "hardIntegral", "hardLimit", "complexPolar", "complexPower", "matrixDet", "eigenvalue", "partialDeriv"];
+        const types = ["hardDerivative", "hardIntegral", "hardLimit", "complexPolar", "complexPower", "matrixDet", "eigenvalue", "partialDeriv", "combinatorics", "olympiad"];
         const pick = types[rand(0, types.length - 1)];
 
         if (pick === "hardDerivative") {
@@ -807,24 +764,22 @@
             return genMatrixDetQ();
         } else if (pick === "eigenvalue") {
             return genEigenvalueQ();
+        } else if (pick === "combinatorics") {
+            return genCombinatoricsQ();
+        } else if (pick === "olympiad") {
+            return genOlympiadQ();
         } else {
             return genPartialDerivQ();
         }
     }
 
-    /* 1. 高階導數 */
     function genHardDerivativeQ() {
         const a = rand(2, 5);
         const b = rand(2, 5);
         const c = rand(1, 4);
-
-        // f(x) = a*e^(bx) + c*ln(x)
-        // f'(x) = a*b*e^(bx) + c/x
         const x = rand(1, 3);
         const ans = parseFloat((a * b * Math.exp(b * x) + c / x).toFixed(2));
-
         const q = `\\(f(x) = ${a}e^{${b}x} + ${c}\\ln(x)\\)，求 \\(f'(${x})\\)`;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             let w = parseFloat((ans + rand(-20, 20)).toFixed(2));
@@ -832,12 +787,10 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q, ans, options, latex: true };
     }
 
-    /* 2. 複雜積分 */
     function genHardIntegralQ() {
         const types = [
             { q: "\\(\\int_0^{\\pi} \\sin(x) \\, dx\\)", ans: 2 },
@@ -845,10 +798,8 @@
             { q: "\\(\\int_1^e \\frac{1}{x} \\, dx\\)", ans: 1 },
             { q: "\\(\\int_0^{\\frac{\\pi}{2}} \\cos(x) \\, dx\\)", ans: 1 }
         ];
-
         const picked = types[rand(0, types.length - 1)];
         const ans = picked.ans;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             let w = parseFloat((ans + rand(-2, 2) + Math.random()).toFixed(2));
@@ -856,12 +807,10 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q: picked.q, ans, options, latex: true };
     }
 
-    /* 3. 極限題（洛必達、泰勒展開） */
     function genHardLimitQ() {
         const types = [
             { q: "\\(\\lim_{x \\to 0} \\frac{e^x - 1}{x}\\)", ans: 1 },
@@ -869,10 +818,8 @@
             { q: "\\(\\lim_{x \\to \\infty} \\left(1 + \\frac{1}{x}\\right)^x\\)", ans: parseFloat(Math.E.toFixed(2)) },
             { q: "\\(\\lim_{x \\to 0} \\frac{1-\\cos(x)}{x^2}\\)", ans: 0.5 }
         ];
-
         const picked = types[rand(0, types.length - 1)];
         const ans = picked.ans;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             let w = parseFloat((ans + rand(-2, 2) + Math.random() - 0.5).toFixed(2));
@@ -880,24 +827,18 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q: picked.q, ans, options, latex: true };
     }
 
-    /* 4. 複數極式 */
     function genComplexPolarQ() {
         const r = rand(2, 5);
         const theta = [0, 30, 45, 60, 90, 120, 135, 150, 180][rand(0, 8)];
         const thetaRad = (theta * Math.PI) / 180;
-
         const realPart = parseFloat((r * Math.cos(thetaRad)).toFixed(2));
         const imagPart = parseFloat((r * Math.sin(thetaRad)).toFixed(2));
-
         const ans = imagPart >= 0 ? `${realPart}+${imagPart}i` : `${realPart}${imagPart}i`;
-
         const q = `\\(${r}e^{i\\frac{${theta}\\pi}{180}}\\) 化為直角座標形式`;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             const wr = parseFloat((realPart + rand(-2, 2) + Math.random()).toFixed(2));
@@ -907,12 +848,10 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q, ans, options, latex: true };
     }
 
-    /* 5. 複數次方 */
     function genComplexPowerQ() {
         const types = [
             { q: "\\(i^2\\)", ans: "-1" },
@@ -921,10 +860,8 @@
             { q: "\\((1+i)^2\\)", ans: "2i" },
             { q: "\\((1-i)^2\\)", ans: "-2i" }
         ];
-
         const picked = types[rand(0, types.length - 1)];
         const ans = picked.ans;
-
         const wrongOptions = [];
         const possibleWrong = ["1", "-1", "i", "-i", "2i", "-2i", "0", "2"];
         for (let w of possibleWrong) {
@@ -932,22 +869,17 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q: picked.q, ans, options, latex: true };
     }
 
-    /* 6. 矩陣行列式 */
     function genMatrixDetQ() {
         const a = rand(1, 5);
         const b = rand(1, 5);
         const c = rand(1, 5);
         const d = rand(1, 5);
-
         const ans = a * d - b * c;
-
         const q = `\\(\\begin{vmatrix} ${a} & ${b} \\\\ ${c} & ${d} \\end{vmatrix}\\) = ?`;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             let w = ans + rand(-10, 10);
@@ -955,21 +887,15 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q, ans, options, latex: true };
     }
 
-    /* 7. 特徵值（簡化版） */
     function genEigenvalueQ() {
-        // 2x2 矩陣，特徵值為對角線元素（當矩陣為對角矩陣）
         const lambda1 = rand(2, 9);
         const lambda2 = rand(2, 9);
-
-        const ans = lambda1 + lambda2; // trace = sum of eigenvalues
-
+        const ans = lambda1 + lambda2;
         const q = `對角矩陣 \\(\\begin{pmatrix} ${lambda1} & 0 \\\\ 0 & ${lambda2} \\end{pmatrix}\\) 的跡（trace）為？`;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             let w = ans + rand(-5, 5);
@@ -977,24 +903,17 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q, ans, options, latex: true };
     }
 
-    /* 8. 偏微分 */
     function genPartialDerivQ() {
         const a = rand(2, 5);
         const b = rand(2, 5);
         const x = rand(1, 3);
         const y = rand(1, 3);
-
-        // f(x,y) = ax^2 + by^2
-        // ∂f/∂x = 2ax
         const ans = 2 * a * x;
-
         const q = `\\(f(x,y) = ${a}x^2 + ${b}y^2\\)，求 \\(\\frac{\\partial f}{\\partial x}\\) 在點 \\((${x}, ${y})\\)`;
-
         const wrongOptions = [];
         while (wrongOptions.length < 3) {
             let w = ans + rand(-8, 8);
@@ -1002,12 +921,159 @@
                 wrongOptions.push(w);
             }
         }
-
         const options = shuffle([ans, ...wrongOptions]);
         return { q, ans, options, latex: true };
     }
 
-    /* ========== 國小程度英文遊戲 ========== */
+    function genCombinatoricsQ() {
+        const types = ["permutation", "combination", "arrangement", "distribution"];
+        const pick = types[rand(0, types.length - 1)];
+
+        if (pick === "permutation") {
+            const n = rand(5, 8);
+            const r = rand(2, 4);
+            let ans = 1;
+            for (let i = 0; i < r; i++) {
+                ans *= (n - i);
+            }
+            const q = `從 ${n} 個不同物品中取 ${r} 個排列，有幾種排法？\\(P(${n},${r})\\)`;
+            const wrongOptions = [];
+            while (wrongOptions.length < 3) {
+                let w = ans + rand(-100, 100);
+                if (w !== ans && w > 0 && !wrongOptions.includes(w)) {
+                    wrongOptions.push(w);
+                }
+            }
+            const options = shuffle([ans, ...wrongOptions]);
+            return { q, ans, options, latex: true };
+        } else if (pick === "combination") {
+            const n = rand(6, 10);
+            const r = rand(2, Math.min(4, n - 2));
+            function factorial(num) {
+                let result = 1;
+                for (let i = 2; i <= num; i++) result *= i;
+                return result;
+            }
+            const ans = factorial(n) / (factorial(r) * factorial(n - r));
+            const q = `從 ${n} 個不同物品中選 ${r} 個（不考慮順序），有幾種選法？\\(C(${n},${r})\\)`;
+            const wrongOptions = [];
+            while (wrongOptions.length < 3) {
+                let w = ans + rand(-30, 30);
+                if (w !== ans && w > 0 && !wrongOptions.includes(w)) {
+                    wrongOptions.push(w);
+                }
+            }
+            const options = shuffle([ans, ...wrongOptions]);
+            return { q, ans, options, latex: true };
+        } else if (pick === "arrangement") {
+            const total = rand(5, 7);
+            const same = rand(2, 3);
+            function factorial(num) {
+                let result = 1;
+                for (let i = 2; i <= num; i++) result *= i;
+                return result;
+            }
+            const ans = factorial(total) / factorial(same);
+            const q = `${total} 個物品中有 ${same} 個相同，全排列有幾種？`;
+            const wrongOptions = [];
+            while (wrongOptions.length < 3) {
+                let w = ans + rand(-200, 200);
+                if (w !== ans && w > 0 && !wrongOptions.includes(w)) {
+                    wrongOptions.push(w);
+                }
+            }
+            const options = shuffle([ans, ...wrongOptions]);
+            return { q, ans, options, latex: false };
+        } else {
+            const items = rand(4, 6);
+            const groups = rand(2, 3);
+            const ans = Math.pow(groups, items);
+            const q = `將 ${items} 個不同物品分給 ${groups} 個人，有幾種分法？`;
+            const wrongOptions = [];
+            while (wrongOptions.length < 3) {
+                let w = ans + rand(-50, 50);
+                if (w !== ans && w > 0 && !wrongOptions.includes(w)) {
+                    wrongOptions.push(w);
+                }
+            }
+            const options = shuffle([ans, ...wrongOptions]);
+            return { q, ans, options, latex: false };
+        }
+    }
+
+    function genOlympiadQ() {
+        const olympiadProblems = [
+            {
+                q: "若 \\(a+b+c=0\\)，求 \\(a^3+b^3+c^3\\) 與 \\(abc\\) 的關係",
+                a: "3abc",
+                options: ["3abc", "abc", "2abc", "0"]
+            },
+            {
+                q: "費馬小定理：若 \\(p=7\\) 為質數，\\(a=2\\)，則 \\(a^{p-1} \\bmod p\\) = ?",
+                a: "1",
+                options: ["1", "0", "2", "6"]
+            },
+            {
+                q: "三角形兩邊長為 5 和 7，第三邊 \\(x\\) 的範圍是？",
+                a: "2<x<12",
+                options: ["2<x<12", "0<x<12", "5<x<7", "2<x<7"]
+            },
+            {
+                q: "若 \\(x^2-5x+6=0\\)，則 \\(x\\) 的兩根之積為？",
+                a: "6",
+                options: ["6", "5", "-6", "-5"]
+            },
+            {
+                q: "\\(\\sqrt{2}\\) 是有理數還是無理數？",
+                a: "無理數",
+                options: ["無理數", "有理數", "整數", "自然數"]
+            },
+            {
+                q: "歐拉公式 \\(e^{i\\pi}+1=?\\)",
+                a: "0",
+                options: ["0", "1", "-1", "i"]
+            },
+            {
+                q: "若函數 \\(f(x)=x^2\\)，則 \\(f(f(2))=?\\)",
+                a: "16",
+                options: ["16", "8", "4", "2"]
+            },
+            {
+                q: "黃金比例 \\(\\phi\\) 約等於？",
+                a: "1.618",
+                options: ["1.618", "3.14", "2.718", "1.414"]
+            },
+            {
+                q: "一個正整數 \\(n\\) 能被 3 整除的充要條件是？",
+                a: "各位數字和能被3整除",
+                options: ["各位數字和能被3整除", "末位數字是3", "n是偶數", "n>3"]
+            },
+            {
+                q: "\\(\\log_2 8 = ?\\)",
+                a: "3",
+                options: ["3", "2", "4", "8"]
+            },
+            {
+                q: "若 \\(\\sin\\theta = \\frac{1}{2}\\)，則 \\(\\theta\\) 在 \\([0,\\pi]\\) 範圍內可能是？",
+                a: "π/6 或 5π/6",
+                options: ["π/6 或 5π/6", "π/3", "π/4", "π/2"]
+            },
+            {
+                q: "畢達哥拉斯三元組 (3,4,?) 中問號是？",
+                a: "5",
+                options: ["5", "6", "7", "8"]
+            }
+        ];
+
+        const picked = olympiadProblems[rand(0, olympiadProblems.length - 1)];
+        return {
+            q: picked.q,
+            ans: picked.a,
+            options: shuffle(picked.options),
+            latex: true
+        };
+    }
+
     function startEnglishGame() {
         const root = document.getElementById("game-root");
         const layer = document.createElement("div");
@@ -1071,7 +1137,6 @@
         }
     }
 
-    /* ========== 猜拳遊戲 ========== */
     function startRpsGame() {
         const root = document.getElementById("game-root");
         const layer = document.createElement("div");
