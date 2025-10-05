@@ -49,8 +49,8 @@
         }
 
         @keyframes earth-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
 
         .earth::after {
@@ -574,9 +574,24 @@
         const el = document.getElementById("bg");
         if (!key) {
             el.style.backgroundImage = "none";
+            el.style.display = "none";
             return;
         }
-        el.style.backgroundImage = "radial-gradient(1000px 800px at 50% 120%, #202020, #000)";
+        const url = assets.bg[key];
+        if (!url) {
+            el.style.backgroundImage = "none";
+            el.style.display = "none";
+            return;
+        }
+        el.style.display = "block";
+        const img = new Image();
+        img.onload = () => {
+            el.style.backgroundImage = `url('${url}')`;
+        };
+        img.onerror = () => {
+            el.style.backgroundImage = "radial-gradient(1000px 800px at 50% 120%, #202020, #000)";
+        };
+        img.src = url;
     }
 
     function renderChar(id, who) {
@@ -586,6 +601,7 @@
             wrap.classList.remove("active");
             return;
         }
+        const emoji = assets.chars[who];
         const avatar = wrap.querySelector(".avatar");
         const name = wrap.querySelector(".name");
 
@@ -596,16 +612,14 @@
             teacher: "老師"
         };
 
-        const emojiMap = {
-            player: "🧑",
-            mom: "👩",
-            dad: "👨",
-            teacher: "👨‍🏫"
-        };
-
         name.textContent = nameMap[who] || who;
-        avatar.style.backgroundImage = "none";
-        avatar.textContent = emojiMap[who] || "👤";
+        if (emoji) {
+            avatar.style.backgroundImage = `url('${emoji}')`;
+            avatar.textContent = "";
+        } else {
+            avatar.style.backgroundImage = "none";
+            avatar.textContent = "👤";
+        }
 
         wrap.style.display = "flex";
         wrap.classList.remove("active");
